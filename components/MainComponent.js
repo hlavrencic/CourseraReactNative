@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import { DISHES } from '../shared/dishes';
+
+const Stack = createStackNavigator();
 
 class Main extends Component {
   constructor(props) {
@@ -20,10 +25,14 @@ class Main extends Component {
   render() {
  
     return (
-    <View style={{flex:1}}>
-      <Menu dishes={this.state.dishes} onPress={(dishId) => this.onDishSelect(dishId)} />
-      <Dishdetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
-    </View>
+      
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Menu" component={Menu} />
+          <Stack.Screen name="Dishdetail" component={Dishdetail} />
+        </Stack.Navigator> 
+      </NavigationContainer>
+      
     );
   }
 }

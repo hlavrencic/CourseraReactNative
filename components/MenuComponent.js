@@ -1,32 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { ListItem, Avatar  } from 'react-native-elements';
 
-function Menu(props) {
+import { DISHES } from '../shared/dishes';
 
-    const renderMenuItem = ({item, index}) => {
+class Menu extends Component {
 
-        return (
-            <ListItem key={index} bottomDivider
-            hideChevron={true}
-                    onPress={() => props.onPress(item.id)}
-            >
-                <Avatar source={require('./images/uthappizza.png')} />
-                <ListItem.Content>
-                    <ListItem.Title>{item.name}</ListItem.Title>
-                    <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                </ListItem.Content>
-            </ListItem>
-        );
+    constructor(props) {
+        super(props);
+        this.state = {
+            dishes: DISHES
+        };
+    }
+
+    static navigationOptions = {
+        title: 'Menu'
     };
 
-    return (
+    render() {
+
+        const { navigate } = this.props.navigation;
+
+        const renderMenuItem = ({item, index}) => {
+
+            return (
+                <ListItem key={index} bottomDivider
+                hideChevron={true}
+                onPress={() => navigate('Dishdetail', { dishId: item.id })}
+                >
+                    <Avatar source={require('./images/uthappizza.png')} />
+                    <ListItem.Content>
+                        <ListItem.Title>{item.name}</ListItem.Title>
+                        <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                    </ListItem.Content>
+                </ListItem>
+                
+            );
+        };
+
+        return (
             <FlatList 
-                data={props.dishes}
-                renderItem={renderMenuItem}
-                keyExtractor={item => item.id.toString()}
-                />
-    );
+                    data={this.state.dishes}
+                    renderItem={renderMenuItem}
+                    keyExtractor={item => item.id.toString()}
+                    />
+        );
+    }
 }
 
 
