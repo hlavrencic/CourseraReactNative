@@ -1,13 +1,36 @@
 import React, { Component } from 'react';
-import { View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Icon } from 'react-native-elements';
 
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
+import Home from './HomeComponent';
+
 import { DISHES } from '../shared/dishes';
 
+
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+/*
+const HomeNavigator = createStackNavigator({
+  Home: { screen: Home }
+}, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTitleStyle: {
+        color: "#fff"            
+    },
+    headerTintColor: "#fff"  
+  })
+});
+*/
+
+
 
 class Main extends Component {
   constructor(props) {
@@ -22,15 +45,51 @@ class Main extends Component {
     this.setState({selectedDish: dishId})
   }
 
+  HomeNavigation() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} options={{
+          headerStyle: {
+              backgroundColor: "#512DA8"
+          },
+          headerTitleStyle: {
+              color: "#fff"            
+          },
+          headerTintColor: "#fff"  
+        }} />
+      </Stack.Navigator>
+    );
+  }
+
+  MenuNavigation() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="Menu" component={Menu} options={{
+            headerStyle: {
+                backgroundColor: "#512DA8"
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: "#fff"            
+            }
+        }} />
+        <Stack.Screen name="Dishdetail" component={Dishdetail} />
+      </Stack.Navigator>
+    );
+  }
+
   render() {
- 
+    
     return (
       
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Menu" component={Menu} />
-          <Stack.Screen name="Dishdetail" component={Dishdetail} />
-        </Stack.Navigator> 
+        <Drawer.Navigator drawerStyle={{
+          backgroundColor: '#D1C4E9',
+        }} >
+          <Drawer.Screen name="Home" component={this.HomeNavigation} />
+          <Drawer.Screen name="Menu" component={this.MenuNavigation} />
+        </Drawer.Navigator>
+         
       </NavigationContainer>
       
     );
