@@ -7,30 +7,14 @@ import { Icon } from 'react-native-elements';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Home from './HomeComponent';
+import ContactUs from './ContactComponent';
+import History from './AboutComponent';
 
 import { DISHES } from '../shared/dishes';
 
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-
-/*
-const HomeNavigator = createStackNavigator({
-  Home: { screen: Home }
-}, {
-  navigationOptions: ({ navigation }) => ({
-    headerStyle: {
-        backgroundColor: "#512DA8"
-    },
-    headerTitleStyle: {
-        color: "#fff"            
-    },
-    headerTintColor: "#fff"  
-  })
-});
-*/
-
-
 
 class Main extends Component {
   constructor(props) {
@@ -78,6 +62,38 @@ class Main extends Component {
     );
   }
 
+  ContactUsNavigation(){
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name=" " component={ContactUs} options={{
+            headerStyle: {
+                backgroundColor: "#512DA8"
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: "#fff"            
+            }
+        }}  />
+      </Stack.Navigator>
+    );
+  }
+
+  AboutUsNavigation(){
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="About Us" component={History} options={{
+            headerStyle: {
+                backgroundColor: "#512DA8"
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: "#fff"            
+            }
+        }}  />
+      </Stack.Navigator>
+    );
+  }
+
   render() {
     
     return (
@@ -88,6 +104,8 @@ class Main extends Component {
         }} >
           <Drawer.Screen name="Home" component={this.HomeNavigation} />
           <Drawer.Screen name="Menu" component={this.MenuNavigation} />
+          <Drawer.Screen name="Contact Us" component={this.ContactUsNavigation} />
+          <Drawer.Screen name="About Us" component={this.AboutUsNavigation} />
         </Drawer.Navigator>
          
       </NavigationContainer>

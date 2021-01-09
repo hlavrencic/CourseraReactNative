@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { ListItem, Avatar  } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import { DISHES } from '../shared/dishes';
 
@@ -28,7 +29,7 @@ class Menu extends Component {
                 hideChevron={true}
                 onPress={() => navigate('Dishdetail', { dishId: item.id })}
                 >
-                    <Avatar source={require('./images/uthappizza.png')} />
+                    <Avatar rounded source={require('./images/uthappizza.png')} />
                     <ListItem.Content>
                         <ListItem.Title>{item.name}</ListItem.Title>
                         <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
