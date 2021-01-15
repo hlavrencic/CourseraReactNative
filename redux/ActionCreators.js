@@ -109,7 +109,12 @@ export const fetchLeaders = () => (dispatch) => {
     
     dispatch(leadersLoading());
 
-    return fetch(baseUrl + 'leaders')
+    return fetch(baseUrl + 'leaders', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }})
     .then(response => {
         if (response.ok) {
             return response;
